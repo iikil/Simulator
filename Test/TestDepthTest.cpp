@@ -5,6 +5,8 @@
 #include <gtc/matrix_transform.hpp>
 #include <gtc/type_ptr.hpp>
 
+#include "TestUtils.h"
+
 namespace LivTest {
 
 using namespace LivRender;
@@ -59,29 +61,12 @@ TestDepthTest::TestDepthTest()
         22,23,20
     };
 
-    /*glm::vec3 cubePositions[] = {
-        glm::vec3(0.0f,  0.0f,  0.0f),
-        glm::vec3(2.0f,  5.0f, -15.0f),
-        glm::vec3(-1.5f, -2.2f, -2.5f),
-        glm::vec3(-3.8f, -2.0f, -12.3f),
-        glm::vec3(2.4f, -0.4f, -3.5f),
-        glm::vec3(-1.7f,  3.0f, -7.5f),
-        glm::vec3(1.3f, -2.0f, -2.5f),
-        glm::vec3(1.5f,  2.0f, -2.5f),
-        glm::vec3(1.5f,  0.2f, -1.5f),
-        glm::vec3(-1.3f,  1.0f, -1.5f)
-    };
-
-    for (int i = 0; i < 10; ++i)
-    {
-        vertices[i * 5 + 0] += cubePositions[i].x;
-        vertices[i * 5 + 1] += cubePositions[i].y;
-        vertices[i * 5 + 2] += cubePositions[i].z;
-    }*/
-
     //打开混合
     GLCall(glEnable(GL_BLEND));
     GLCall(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA));
+
+    auto shaderPath = getExecutableDir().parent_path() /  "res" / "shaders" / "DepthTest.shader";
+    auto texturePath = getExecutableDir().parent_path() / "res" / "textures" / "1.png";
 
     m_VAO = std::make_unique<VertexArray>();
     m_VBO = std::make_unique<VertexBuffer>(vertices,sizeof(vertices));
@@ -90,8 +75,8 @@ TestDepthTest::TestDepthTest()
     layout.Push<float>(2);
     m_VAO->AddBuffer(*m_VBO, layout);
     m_IndexBuffer = std::make_unique<IndexBuffer>(indices, 36);
-    m_Texture = std::make_unique<Texture>("../res/textures/1.png");
-    m_Shader = std::make_unique<Shader>("../res/shaders/DepthTest.shader");
+    m_Texture = std::make_unique<Texture>(texturePath.string());
+    m_Shader = std::make_unique<Shader>(shaderPath.string());
 }
 
 TestDepthTest::~TestDepthTest()
@@ -126,18 +111,6 @@ void TestDepthTest::OnRender()
     glm::mat4 mvp = glm::mat4(1.0f);
 
     proj = glm::perspective(glm::radians(45.0f), 800.0f / 600.0f, 0.1f, 100.0f);
-
-    /*std::cout << "proj:" << std::endl;
-    for (int i = 0; i < 4; ++i)
-    {
-        std::cout << "(";
-        for (int j = 0; j < 4; ++j)
-        {
-            std::cout << proj[i][j] <<  ", ";
-
-        }
-        std::cout << ")\n";
-    }*/
 
     view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));
 

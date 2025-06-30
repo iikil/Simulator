@@ -3,6 +3,8 @@
 #include "VertexBufferLayout.h"
 #include "imgui.h"
 
+#include "TestUtils.h"
+
 namespace LivTest {
 
 using namespace LivRender;
@@ -25,11 +27,14 @@ TestTexture2D::TestTexture2D()
     GLCall(glEnable(GL_BLEND));
     GLCall(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA));
 
-    m_Shader = std::make_unique<Shader>("../res/shaders/Basic.shader");
+    auto shaderPath = getExecutableDir().parent_path() /  "res" / "shaders" / "Basic.shader";
+    auto texturePath = getExecutableDir().parent_path() / "res" / "textures" / "1.png";
+
+    m_Shader = std::make_unique<Shader>(shaderPath.string());
     m_VAO = std::make_unique<VertexArray>();
     m_VBO = std::make_unique<VertexBuffer>(positions, 4 * 4 * sizeof(float));
     m_IndexBuffer = std::make_unique<IndexBuffer>(indices, 6);
-    m_Texture = std::make_unique<Texture>("../res/textures/1.png");
+    m_Texture = std::make_unique<Texture>(texturePath.string());
     
     VertexBufferLayout layout;
 
