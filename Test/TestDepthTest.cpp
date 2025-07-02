@@ -167,15 +167,10 @@ void TestDepthTest::OnRender()
         {
             model = glm::mat4(1.0f);
             model = glm::translate(model, cubePositions[i]);
-            glm::vec4 ans = model * glm::vec4(vertices[0], vertices[1], vertices[2], 1.0);
-            //std::cout << "(" << ans.x << ", " << ans.y << ", " << ans.z << ", " << ans.w << ")" << std::endl;
+
             float angle = 20.0f * i;
             model = glm::rotate(model, glm::radians(angle), glm::vec3(1.0f, 0.3f, 0.5f));
-            ans = model * glm::vec4(vertices[0], vertices[1], vertices[2], 1.0);
-            //std::cout << "(" << ans.x << ", " << ans.y << ", " << ans.z << ", " << ans.w << ")" << std::endl;
-            mvp = proj * view * model * iden;
-            ans = mvp * glm::vec4(vertices[0], vertices[1], vertices[2], 1.0);
-            //std::cout << "(" << ans.x << ", " << ans.y << ", " << ans.z << ", " << ans.w << ")" << std::endl;
+
             m_Shader->SetUniformMat4f("u_model", model);
 
             m_Renderer.Draw(*m_VAO, *m_IndexBuffer, *m_Shader);
@@ -183,7 +178,6 @@ void TestDepthTest::OnRender()
     }
     else {
         model = glm::rotate(model, (float)ImGui::GetTime() * glm::radians(50.0f), glm::vec3(0.5f, 1.0f, 0.0f));
-        mvp = proj * view * model * iden;
 
         m_Shader->SetUniformMat4f("u_model", model);
 

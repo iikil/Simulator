@@ -42,11 +42,8 @@ TestTexture2D::TestTexture2D()
     layout.Push<float>(2);
     m_VAO->AddBuffer(*m_VBO, layout);
 
-    //TPDO:test 不在初始化uniform变量，直接在渲染循环中绑定
 
     m_Shader->Bind();
-    m_Shader->SetUniform4f("u_Color", 0.2f, 0.3f, 0.8f, 1.0f);
-    //m_Shader->SetUniformMat4f("u_MVP", proj);
 
     m_Texture->Bind();
     m_Shader->SetUniform1i("u_Texture", 0);

@@ -18,6 +18,8 @@
 #include "TestTexture2D.h"
 #include "TestClearColor.h"
 #include "TestDepthTest.h"
+#include "TestCamera.h"
+#include "TestLight.h"
 
 
 int main(void)
@@ -72,6 +74,8 @@ int main(void)
         testMenu->RegisterTest<LivTest::TestClearColor>("Clear Color");
         testMenu->RegisterTest<LivTest::TestTexture2D>("2D Texture");
         testMenu->RegisterTest<LivTest::TestDepthTest>("Depth Test");
+        testMenu->RegisterTest<LivTest::TestCamera>("Camera");
+        testMenu->RegisterTest<LivTest::TestLight>("Light");
         /* Loop until the user closes the window */
         while (!glfwWindowShouldClose(window))
         {

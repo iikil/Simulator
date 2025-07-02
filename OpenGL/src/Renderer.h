@@ -1,6 +1,7 @@
 #ifndef LIVRENDER_RENDERER_H
 #define LIVRENDER_RENDERER_H
 
+#include <vector>
 #include <glad/glad.h>
 #include "IndexBuffer.h"
 #include "VertexArray.h"
@@ -34,7 +35,9 @@ class Renderer
 {
 public:
     void Clear() const;
+    void Draw(const VertexArray& va, const IndexBuffer& ib, const std::vector<Shader>& shader) const;
     void Draw(const VertexArray& va, const IndexBuffer& ib, const Shader& shader) const;
+    void Draw(const VertexArray& va,  int vertexSize, const Shader& shader) const;
 };
 
 }      // LivRender

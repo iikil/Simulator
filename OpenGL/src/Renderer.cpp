@@ -24,12 +24,31 @@ void Renderer::Clear() const
     GLCall(glClear(GL_COLOR_BUFFER_BIT));
 }
 
+void Renderer::Draw(const VertexArray& va, const IndexBuffer& ib, const std::vector<Shader>& shaders) const
+{
+    for (const auto& shader:shaders) {
+        shader.Bind();
+    }
+    va.Bind();
+    ib.Bind();
+    GLCall(glDrawElements(GL_TRIANGLES, ib.getCount(), GL_UNSIGNED_INT, nullptr));
+}
+
 void Renderer::Draw(const VertexArray& va, const IndexBuffer& ib, const Shader& shader) const
 {
+    
     shader.Bind();
     va.Bind();
     ib.Bind();
     GLCall(glDrawElements(GL_TRIANGLES, ib.getCount(), GL_UNSIGNED_INT, nullptr));
+}
+
+void Renderer::Draw(const VertexArray& va, int vertexSize, const Shader& shader) const
+{
+
+    shader.Bind();
+    va.Bind();
+    GLCall(glDrawArrays(GL_TRIANGLES, 0, vertexSize););
 }
 
 }  // LivRender

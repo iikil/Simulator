@@ -6,13 +6,18 @@
 #include <gtc/matrix_transform.hpp>
 #include <gtc/type_ptr.hpp>
 
+#include "TestUtils.h"
+
 namespace LivTest {
 
 using namespace LivRender;
 
 TestCamera::TestCamera()
-    :m_Renderer(),m_Camera(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, 0.0f))
+    :m_Renderer(),m_Camera()
 {
+    auto shaderPath = getExecutableDir().parent_path() /  "res" / "shaders" / "Basic.shader";
+    auto texturePath = getExecutableDir().parent_path() / "res" / "textures" / "1.png";
+
     float vertices[] = {
         -0.5f, -0.5f, -0.5f,  0.0f, 0.0f,   // 0
         0.5f, -0.5f, -0.5f,  1.0f, 0.0f,   // 1
@@ -63,8 +68,9 @@ TestCamera::TestCamera()
     GLCall(glEnable(GL_BLEND));
     GLCall(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA));
     GLCall(glEnable(GL_DEPTH_TEST));
+
+    m_Camera.SetCameraPos(glm::vec3(0.0f, 0.0f, 2.0f));
     
-    Camera c(glm::vec3(0.0f, 0.0f, -3.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
     m_VAO = std::make_unique<VertexArray>();
     m_VBO = std::make_unique<VertexBuffer>(vertices, sizeof(vertices));
     VertexBufferLayout layout;
@@ -72,8 +78,13 @@ TestCamera::TestCamera()
     layout.Push<float>(2);
     m_VAO->AddBuffer(*m_VBO, layout);
     m_IndexBuffer = std::make_unique<IndexBuffer>(indices, 36);
-    m_Texture = std::make_unique<Texture>("../res/textures/1.png");
-    m_Shader = std::make_unique<Shader>("../res/shaders/Basic.shader");
+    m_Texture = std::make_unique<Texture>(texturePath.string());
+    m_Shader = std::make_unique<Shader>(shaderPath.string());
+
+    m_Shader->Bind();
+
+    m_Texture->Bind();
+    m_Shader->SetUniform1i("u_Texture", 0);
 }
 
 TestCamera::~TestCamera()
@@ -96,6 +107,7 @@ void TestCamera::OnRender()
     float camZ = cos(glfwGetTime()) * radius;
 
     m_Camera.SetCameraPos(glm::vec3(camX, 0.0f, camZ));
+    m_Camera.SetCameraTarget(glm::vec3(0.0f, 0.0f, 0.0f));
     
 
     m_Texture->Bind();
