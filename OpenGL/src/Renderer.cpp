@@ -36,7 +36,6 @@ void Renderer::Draw(const VertexArray& va, const IndexBuffer& ib, const std::vec
 
 void Renderer::Draw(const VertexArray& va, const IndexBuffer& ib, const Shader& shader) const
 {
-    
     shader.Bind();
     va.Bind();
     ib.Bind();
@@ -45,7 +44,6 @@ void Renderer::Draw(const VertexArray& va, const IndexBuffer& ib, const Shader& 
 
 void Renderer::Draw(const VertexArray& va, int vertexSize, const Shader& shader) const
 {
-
     shader.Bind();
     va.Bind();
     GLCall(glDrawArrays(GL_TRIANGLES, 0, vertexSize););

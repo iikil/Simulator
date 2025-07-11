@@ -22,8 +22,8 @@ private:
 	float m_Near;
 	float m_Far;
 public:
-	Camera(glm::vec3 CameraPos = glm::vec3(0.0f,0.0f,0.0f), 
-		glm::vec3 CameraTarget = glm::vec3(0.0f,0.0f,-1.0f),
+	Camera(glm::vec3 CameraPos = glm::vec3(0.0f,0.0f,3.0f), 
+		glm::vec3 CameraTarget = glm::vec3(0.0f,0.0f,0.0f),
 		glm::vec3 CameraUp = glm::vec3(0.0f,1.0f,0.0f),
 		float fovy = glm::radians(45.0f), float aspect = 800.0f/600.0f,
 		float near = 0.1f, float far = 1000.0f);

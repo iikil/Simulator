@@ -14,54 +14,54 @@ using namespace LivRender;
 
 TestLight::TestLight()
     :m_Renderer(),m_Camera(),
-    m_LightPos{glm::vec3(1.2f, 1.0f, 2.0f)}
+    m_LightPos{glm::vec3(0.0f, 2.0f, 2.0f)}
 {
     auto shaderObjectPath = getExecutableDir().parent_path() /  "res" / "shaders" / "1.colors.shader";
     auto shaderLightPath = getExecutableDir().parent_path() /  "res" / "shaders" / "1.light_cube.shader";
 
     float vertices[] = {
-        -0.5f, -0.5f, -0.5f, 
-         0.5f, -0.5f, -0.5f,  
-         0.5f,  0.5f, -0.5f,  
-         0.5f,  0.5f, -0.5f,  
-        -0.5f,  0.5f, -0.5f, 
-        -0.5f, -0.5f, -0.5f, 
+    -0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
+     0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f, 
+     0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f, 
+     0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f, 
+    -0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f, 
+    -0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f, 
 
-        -0.5f, -0.5f,  0.5f, 
-         0.5f, -0.5f,  0.5f,  
-         0.5f,  0.5f,  0.5f,  
-         0.5f,  0.5f,  0.5f,  
-        -0.5f,  0.5f,  0.5f, 
-        -0.5f, -0.5f,  0.5f, 
+    -0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,
+     0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,
+     0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,
+     0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,
+    -0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,
+    -0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,
 
-        -0.5f,  0.5f,  0.5f, 
-        -0.5f,  0.5f, -0.5f, 
-        -0.5f, -0.5f, -0.5f, 
-        -0.5f, -0.5f, -0.5f, 
-        -0.5f, -0.5f,  0.5f, 
-        -0.5f,  0.5f,  0.5f, 
+    -0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,
+    -0.5f,  0.5f, -0.5f, -1.0f,  0.0f,  0.0f,
+    -0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,
+    -0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,
+    -0.5f, -0.5f,  0.5f, -1.0f,  0.0f,  0.0f,
+    -0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,
 
-         0.5f,  0.5f,  0.5f,  
-         0.5f,  0.5f, -0.5f,  
-         0.5f, -0.5f, -0.5f,  
-         0.5f, -0.5f, -0.5f,  
-         0.5f, -0.5f,  0.5f,  
-         0.5f,  0.5f,  0.5f,  
+     0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,
+     0.5f,  0.5f, -0.5f,  1.0f,  0.0f,  0.0f,
+     0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,
+     0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,
+     0.5f, -0.5f,  0.5f,  1.0f,  0.0f,  0.0f,
+     0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,
 
-        -0.5f, -0.5f, -0.5f, 
-         0.5f, -0.5f, -0.5f,  
-         0.5f, -0.5f,  0.5f,  
-         0.5f, -0.5f,  0.5f,  
-        -0.5f, -0.5f,  0.5f, 
-        -0.5f, -0.5f, -0.5f, 
+    -0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,
+     0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,
+     0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,
+     0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,
+    -0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,
+    -0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,
 
-        -0.5f,  0.5f, -0.5f, 
-         0.5f,  0.5f, -0.5f,  
-         0.5f,  0.5f,  0.5f,  
-         0.5f,  0.5f,  0.5f,  
-        -0.5f,  0.5f,  0.5f, 
-        -0.5f,  0.5f, -0.5f, 
-    };
+    -0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,
+     0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,
+     0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,
+     0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,
+    -0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,
+    -0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f
+};
     
     GLCall(glEnable(GL_BLEND));
     GLCall(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA));
@@ -70,6 +70,7 @@ TestLight::TestLight()
     m_VAO = std::make_unique<VertexArray>();
     m_VBO = std::make_unique<VertexBuffer>(vertices, sizeof(vertices));
     VertexBufferLayout layout;
+    layout.Push<float>(3);
     layout.Push<float>(3);
     m_VAO->AddBuffer(*m_VBO, layout);
     m_ShaderObject = std::make_unique<Shader>(shaderObjectPath.string());
@@ -90,14 +91,19 @@ void TestLight::OnUpdate(float deltaTime)
 
 void TestLight::OnRender()
 {
+
+    GLCall(glEnable(GL_DEPTH_TEST));
+
     GLCall(glClearColor(0.0f, 0.0f, 0.0f, 1.0f));
     GLCall(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT));
 
-    GLCall(glEnable(GL_DEPTH_TEST));
+    
     
     m_ShaderObject->Bind();
-    m_ShaderObject->SetUniform4f("objectColor", 1.0f, 0.5f, 0.31f, 1.0f);
-    m_ShaderObject->SetUniform4f("lightColor", 1.0f, 1.0f, 1.0f, 1.0f);
+    m_ShaderObject->SetUniform4f("u_ObjectColor", 1.0f, 0.5f, 0.31f, 1.0f);
+    m_ShaderObject->SetUniform4f("u_LightColor", 1.0f, 1.0f, 1.0f, 1.0f);
+    m_ShaderObject->SetUniform4f("u_LightPos", m_LightPos.x,m_LightPos.y,m_LightPos.z,1.0);
+    m_ShaderObject->SetUniform4f("u_ViewPos",m_Camera.GetCameraPos().x, m_Camera.GetCameraPos().y,m_Camera.GetCameraPos().z,1.0);
 
     glm::mat4 iden = glm::mat4(1.0f);
     glm::mat4 model = glm::mat4(1.0f);
@@ -110,6 +116,7 @@ void TestLight::OnRender()
 
     mvp = proj * view * model * iden;
     m_ShaderObject->SetUniformMat4f("u_MVP", mvp);
+    m_ShaderObject->SetUniformMat4f("u_Model", model);
     m_Renderer.Draw(*m_VAO, 36, *m_ShaderObject);
 
     m_ShaderLight->Bind();
